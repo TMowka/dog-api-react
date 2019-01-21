@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import collectionsReducer from 'store/reducers/collections';
+import breedsReducer from 'store/reducers/breeds';
 
 export default combineReducers({
-  collections: collectionsReducer
+  breeds: breedsReducer
 });

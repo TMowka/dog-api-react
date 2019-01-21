@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import asyncMiddleware from 'middlewares/async';
+import thunk from 'redux-thunk';
 import reducers from 'store/reducers';
 import { childrenPropTypes } from 'util/propTypes';
 
@@ -21,7 +21,7 @@ const root = ({ initialState, children }) => {
   const store = createStore(
     reducers,
     initialState || {},
-    composeEnhancers(applyMiddleware(asyncMiddleware))
+    composeEnhancers(applyMiddleware(thunk))
   );
 
   return (
