@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as actions from 'store/actions';
 
 import Layout from 'components/partial/Layout/Layout';
-import Card from 'components/Card/Card';
+import BreedSearch from './BreedSearch/BreedSearch';
+import BreedList from './BreedList/BreedList';
 
 const propTypes = {
-  breeds: PropTypes.instanceOf(Object),
   fetchBreedList: PropTypes.func.isRequired,
-  pending: PropTypes.bool,
-  filter: PropTypes.string
+  pending: PropTypes.bool
 };
 
 const defaultProps = {
-  breeds: null,
-  pending: false,
-  filter: ''
+  pending: false
 };
 
 class BreedListPage extends Component {
@@ -31,42 +27,30 @@ class BreedListPage extends Component {
     fetchBreedList();
   }
 
-  renderSpinner() {
+  renderBreedList() {
     const { pending } = this.props;
 
-    return pending
-      ? (
-        <div className="d-flex justify-content-center">
-          <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
+    const spinner = (
+      <div className="col d-flex justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
-      )
-      : null;
-  }
+      </div>
+    );
 
-  renderBreeds() {
-    const { breeds, filter } = this.props;
-
-    if (!breeds) {
-      return null;
-    }
-
-    return Object.keys(breeds)
-      .filter(breed => breed.includes(filter))
-      .map(breed => (
-        <Card key={breed}>
-          <Link to={`/breeds/${breed}`}>{breed}</Link>
-        </Card>
-      ));
+    return pending ? spinner : <BreedList />;
   }
 
   render() {
     return (
       <Layout>
-        {this.renderSpinner()}
-        <div className="card-columns mt-2">
-          {this.renderBreeds()}
+        <div className="col">
+          <div className="row">
+            <BreedSearch />
+          </div>
+          <div className="row">
+            {this.renderBreedList()}
+          </div>
         </div>
       </Layout>
     );

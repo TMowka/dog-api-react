@@ -13,5 +13,5 @@ export const fetchBreedList = () => async (dispatch) => {
 };
 
 export const searchBreedChange = value => dispatch => dispatch({
-  type: SEARCH_BREED_CHANGE, payload: value
+  type: SEARCH_BREED_CHANGE, payload: value.toLowerCase()
 });

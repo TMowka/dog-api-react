@@ -7,10 +7,12 @@ const propTypes = {
 };
 
 const layout = React.memo(({ children }) => (
-  <div className="container" id="container">
-    <div className="col">
-      <div className="row">
-        {children}
+  <div id="layout">
+    <div className="container">
+      <div className="col">
+        <div className="row">
+          {children}
+        </div>
       </div>
     </div>
   </div>
