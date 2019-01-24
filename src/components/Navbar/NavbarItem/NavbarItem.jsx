@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const navbarItem = React.memo(({ children, to, active }) => {
-  const classes = ['nav-item'];
+  const classes = ['nav-item mx-2'];
   if (active) {
     classes.push('active');
   }

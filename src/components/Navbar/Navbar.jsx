@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { locationPropTypes } from 'util/propTypes';
-import './Navbar.css';
 
 import NavbarItem from './NavbarItem/NavbarItem';
 
@@ -12,6 +11,7 @@ const propTypes = {
 class Navbar extends Component {
   state = {
     items: [
+      { path: '', name: 'Home' },
       { path: 'breeds', name: 'Breeds' },
       { path: 'about', name: 'About' }
     ],
@@ -58,10 +58,12 @@ class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar fixed-top navbar-expand-sm bg-light">
+      <nav className="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
-          <Link to="/" className="nav-link px-3 my-auto">Dog API</Link>
-          <ul className="nav">
+          <div className="nav-item">
+            <Link to="/" className="btn btn-outline-light px-3 my-auto">Dog API</Link>
+          </div>
+          <ul className="navbar-nav">
             {this.renderNavbarItems()}
           </ul>
         </div>
@@ -72,4 +74,4 @@ class Navbar extends Component {
 
 Navbar.propTypes = propTypes;
 
-export default Navbar;
+export default withRouter(Navbar);

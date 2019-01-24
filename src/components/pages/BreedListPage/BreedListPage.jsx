@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from 'store/actions';
 
-import Layout from 'components/partial/Layout/Layout';
 import BreedSearch from './BreedSearch/BreedSearch';
 import BreedList from './BreedList/BreedList';
 
@@ -43,16 +42,14 @@ class BreedListPage extends Component {
 
   render() {
     return (
-      <Layout>
-        <div className="col">
-          <div className="row">
-            <BreedSearch />
-          </div>
-          <div className="row">
-            {this.renderBreedList()}
-          </div>
+      <div className="col">
+        <div className="row">
+          <BreedSearch />
         </div>
-      </Layout>
+        <div className="row">
+          {this.renderBreedList()}
+        </div>
+      </div>
     );
   }
 }

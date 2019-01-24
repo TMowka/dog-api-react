@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import BreedThumbnailImage from '../BreedThumbnailImage/BreedThumbnailImage';
+import Card from 'components/partial/Card/Card';
+import LazyImage from 'components/partial/LazyImage/LazyImage';
 
 const propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string).isRequired
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onImageClick: PropTypes.func
+};
+
+const defaultProps = {
+  onImageClick: null
 };
 
 const breedImageList = React.memo(({ images, onImageClick }) => (
@@ -15,14 +21,16 @@ const breedImageList = React.memo(({ images, onImageClick }) => (
         role="presentation"
         tabIndex={index + 1}
         onClick={() => onImageClick(index)}
-        className="card text-center"
       >
-        <BreedThumbnailImage className="card-img-top" src={image} />
+        <Card
+          image={<LazyImage className="card-img-top" src={image} />}
+        />
       </div>
     ))}
   </div>
 ));
 
 breedImageList.propTypes = propTypes;
+breedImageList.defaultProps = defaultProps;
 
 export default breedImageList;

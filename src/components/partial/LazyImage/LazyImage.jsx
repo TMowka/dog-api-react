@@ -16,7 +16,7 @@ const defaultProps = {
   style: null
 };
 
-class BreedThumbnailImage extends PureComponent {
+class LazyImage extends PureComponent {
   state = {
     loaded: false,
     error: false
@@ -48,7 +48,7 @@ class BreedThumbnailImage extends PureComponent {
   }
 }
 
-BreedThumbnailImage.propTypes = propTypes;
-BreedThumbnailImage.defaultProps = defaultProps;
+LazyImage.propTypes = propTypes;
+LazyImage.defaultProps = defaultProps;
 
-export default BreedThumbnailImage;
+export default LazyImage;

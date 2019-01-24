@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import Dropright from 'components/partial/Dropright/Dropright';
+
 const propTypes = {
   breed: PropTypes.string,
   subBreeds: PropTypes.arrayOf(PropTypes.string)
@@ -17,19 +19,23 @@ const breedListItem = React.memo(({ breed, subBreeds }) => {
     <Link className="btn btn-outline-secondary" to={`/breeds/${breed}`}>{breed}</Link>
   );
 
-  if (subBreeds) {
+  if (subBreeds && subBreeds.length > 0) {
     breedButton = (
-      <div className="btn-group dropright">
+      <Dropright
+        items={
+          subBreeds.map(subBreed => (
+            <Dropright.Item key={subBreed}>
+              <Link
+                to={`/breeds/${breed}/${subBreed}`}
+              >
+                {subBreed}
+              </Link>
+            </Dropright.Item>
+          ))
+        }
+      >
         <Link className="btn btn-outline-secondary" to={`/breeds/${breed}`}>{breed}</Link>
-        <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span className="sr-only">Toggle Dropright</span>
-        </button>
-        <div className="dropdown-menu">
-          {subBreeds.map(subBreed => (
-            <li key={subBreed}>{subBreed}</li>
-          ))}
-        </div>
-      </div>
+      </Dropright>
     );
   }
 

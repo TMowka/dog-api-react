@@ -8,7 +8,7 @@ const propTypes = {
 };
 
 const breedSearch = React.memo(({ searchBreedChange }) => {
-  const searchBreedHandle = event => searchBreedChange(event.target.value);
+  const searchBreedChangeHandle = event => searchBreedChange(event.target.value);
 
   return (
     <div className="input-group my-3">
@@ -19,7 +19,7 @@ const breedSearch = React.memo(({ searchBreedChange }) => {
         type="text"
         className="form-control"
         placeholder="Start typing the breed name here ..."
-        onChange={searchBreedHandle}
+        onChange={searchBreedChangeHandle}
       />
     </div>
   );

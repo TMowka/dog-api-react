@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import BreedListItem from '../BreedListItem/BreedListItem';
+import BreedListItem from './BreedListItem/BreedListItem';
 
 const propTypes = {
   breeds: PropTypes.instanceOf(Object),
@@ -22,7 +22,7 @@ const breedList = React.memo(({ breeds, filter }) => (
         <BreedListItem
           key={breed}
           breed={breed}
-          subBreeds={['test1', 'test2', 'test3']} // mock!!!
+          subBreeds={breeds[breed]}
         />
       ))}
   </div>

@@ -1,8 +1,7 @@
-import { FETCH_BREEDS, FETCH_BREEDS_PENDING, SEARCH_BREED_CHANGE } from '../actions/types';
+import { FETCH_BREEDS, SEARCH_BREED_CHANGE } from '../actions/types';
 
 const initialState = {
   list: null,
-  pending: false,
   filter: ''
 };
 
@@ -11,14 +10,7 @@ export default (state = initialState, action) => {
     case FETCH_BREEDS:
       return {
         ...state,
-        list: action.payload,
-        pending: false
-      };
-
-    case FETCH_BREEDS_PENDING:
-      return {
-        ...state,
-        pending: true
+        list: action.payload
       };
 
     case SEARCH_BREED_CHANGE:

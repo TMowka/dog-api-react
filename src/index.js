@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Root from 'components/Root';
 import App from 'components/App';
+import Router from 'components/Router';
 
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Root>
-    <App />
+    <BrowserRouter>
+      <App>
+        <Router />
+      </App>
+    </BrowserRouter>
   </Root>,
   document.getElementById('root')
 );

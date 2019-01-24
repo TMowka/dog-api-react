@@ -1,0 +1,28 @@
+.alert-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.alert-box-enter {
+  opacity: 0.01;
+  transform: scale(0.9) translateX(-50%);
+}
+
+.alert-box-enter-active {
+  opacity: 1;
+  transform: scale(1) translateX(0%);
+  transition: all 300ms ease-out;
+}
+
+.alert-box-exit {
+  opacity: 1;
+  transform: scale(1) translateX(0%);
+}
+
+.alert-box-exit-active {
+  opacity: 0.01;
+  transform: scale(0.9) translateX(-50%);
+  transition: all 300ms ease-out;
+}

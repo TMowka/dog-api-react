@@ -1,0 +1,13 @@
+.layout {
+  margin-top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+@media (max-width: 575px) {
+  .layout {
+    margin-top: 136px;
+    height: calc(100vh - 136px);
+  }
+}

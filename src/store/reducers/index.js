@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import breedsReducer from 'store/reducers/breeds';
+import alertReducer from './alert';
+import breedsReducer from './breeds';
 
 export default combineReducers({
+  alert: alertReducer,
   breeds: breedsReducer
 });

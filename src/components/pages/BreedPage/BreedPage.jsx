@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import config from 'config';
+import { imageByBreedUrl } from 'util/index';
+import { ALERT_TYPES } from 'util/constants';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { locationPropTypes, historyPropTypes } from 'util/propTypes';
+import * as actions from 'store/actions';
 
-import Layout from 'components/partial/Layout/Layout';
+import Modal from 'components/partial/Modal/Modal';
+import LazyImage from 'components/partial/LazyImage/LazyImage';
 import BreedImageList from './BreedImageList/BreedImageList';
-import BreedImageModal from './BreedImageModal/BreedImageModal';
-import BreedThumbnailImage from './BreedThumbnailImage/BreedThumbnailImage';
 
 const propTypes = {
   location: locationPropTypes.isRequired,
@@ -17,6 +20,7 @@ const propTypes = {
 class BreedPage extends Component {
   state = {
     images: [],
+    open: false,
     activeImageIndex: -1
   };
 
@@ -28,66 +32,86 @@ class BreedPage extends Component {
     const { location } = this.props;
 
     if (prevProps.location !== location) {
-      await this.fetchImages();
+      this.fetchImages();
     }
   }
 
   handleImageClick = (index) => {
     this.setState({
+      open: true,
       activeImageIndex: index
     });
   }
 
+  handleModalClose = () => {
+    this.setState({
+      open: false
+    });
+  }
+
+  handleModalContentClick = () => {
+    const { activeImageIndex, images } = this.state;
+
+    this.setState({
+      activeImageIndex: activeImageIndex < images.length - 1 ? activeImageIndex + 1 : 0
+    });
+  }
+
   async fetchImages() {
-    const { location, history } = this.props;
+    const {
+      location, history, showAlert, hideAlert
+    } = this.props;
 
     const currBreed = location.pathname.split('/')[2];
     const currSubBreed = location.pathname.split('/')[3];
 
     try {
-      const response = await axios.get(config.api.imagesByBreed(currBreed, currSubBreed));
+      showAlert('', ALERT_TYPES.PENDING);
+
+      const response = await axios.get(imageByBreedUrl(currBreed, currSubBreed));
 
       this.setState({
         images: response.data.message
-      });
+      }, hideAlert);
     } catch (error) {
+      showAlert(error.message, ALERT_TYPES.ERROR, 4000);
       history.push('/404');
     }
   }
 
   renderImageModal() {
-    const { images, activeImageIndex } = this.state;
+    const { images, activeImageIndex, open } = this.state;
 
-    return activeImageIndex > -1
-      ? (
-        <BreedImageModal
-          src={images[activeImageIndex]}
-          onClose={() => this.handleImageClick(-1)}
-        >
-          <div className="card">
-            <BreedThumbnailImage className="card-img-top text-center" src={images[activeImageIndex]} />
-          </div>
-        </BreedImageModal>
-      )
-      : null;
+    return (
+      <Modal
+        open={open}
+        onClose={this.handleModalClose}
+        onContentClick={this.handleModalContentClick}
+      >
+        <div className="card">
+          <LazyImage className="card-img-top text-center" src={images[activeImageIndex]} />
+        </div>
+      </Modal>
+    );
   }
 
   render() {
     const { images } = this.state;
 
     return (
-      <Layout>
-        <div className="col">
-          <div className="row">
-            {this.renderImageModal()}
-            <BreedImageList images={images} onImageClick={this.handleImageClick} />
-          </div>
+      <div className="col">
+        <div className="row">
+          {this.renderImageModal()}
+          <BreedImageList images={images} onImageClick={this.handleImageClick} />
         </div>
-      </Layout>
+      </div>
     );
   }
 }
 
 BreedPage.propTypes = propTypes;
 
-export default withRouter(BreedPage);
+export default compose(
+  connect(null, actions),
+  withRouter
+)(BreedPage);
