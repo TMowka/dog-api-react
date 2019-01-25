@@ -1,28 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import twitterIcon from 'assets/icons/twitter.svg';
+import githubSvg from 'assets/icons/github.svg';
+import linkedinSvg from 'assets/icons/linkedin.svg';
+import telegramSvg from 'assets/icons/telegram.svg';
 
 const propTypes = {
-  name: PropTypes.string
+  name: PropTypes.string,
+  className: PropTypes.string
 };
 
 const defaultProps = {
-  name: ''
+  name: '',
+  className: ''
 };
 
-const icon = React.memo(({ name }) => {
+const icon = React.memo(({ name, className }) => {
   let iconSvg;
   switch (name) {
-    case 'twitter':
-      iconSvg = twitterIcon;
+    case 'github':
+      iconSvg = githubSvg;
+      break;
+
+    case 'linkedin':
+      iconSvg = linkedinSvg;
+      break;
+
+    case 'telegram':
+      iconSvg = telegramSvg;
       break;
 
     default:
       break;
   }
 
-  return <i>{iconSvg}</i>;
+  return <img src={iconSvg} alt={name} className={className} />;
 });
 
 icon.propTypes = propTypes;

@@ -1,4 +1,5 @@
 import React from 'react';
+import './AboutPage.css';
 
 import Header from 'components/partial/Header/Header';
 import Table from 'components/partial/Table/Table';
@@ -10,7 +11,7 @@ const aboutPage = React.memo(() => (
 
     <section>
       <div className="container">
-        <div className="row">
+        <div className="row mb-3">
           <div className="col-md-6">
             <h1>Who am I?</h1>
             <p>
@@ -25,7 +26,7 @@ const aboutPage = React.memo(() => (
           </div>
         </div>
 
-        <div className="row justify-content-end">
+        <div className="row justify-content-end mb-3">
           <div className="col-md-6">
             <h1 className="text-right">My Skills</h1>
             <Table>
@@ -85,9 +86,18 @@ const aboutPage = React.memo(() => (
         </div>
 
         <div className="row">
-          <div className="col-md-6">
-            <h1>Contacts</h1>
-            <Icon name="twitter" />
+          <div className="col">
+            <div className="d-flex flex-row justify-content-around align-items-center p-5">
+              <a href="https://github.com/TMowka" target="_blank" rel="noopener noreferrer">
+                <Icon name="github" className="social-icon" />
+              </a>
+              <a href="https://www.linkedin.com/in/tmowka/" target="_blank" rel="noopener noreferrer">
+                <Icon name="linkedin" className="social-icon" />
+              </a>
+              <a href="https://t.me/tmowka" target="_blank" rel="noopener noreferrer">
+                <Icon name="telegram" className="social-icon" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
