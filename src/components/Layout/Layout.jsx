@@ -6,8 +6,12 @@ const propTypes = {
   children: childrenPropTypes
 };
 
+const defaultProps = {
+  children: null
+};
+
 const layout = React.memo(({ children }) => (
-  <div className="layout">
+  <div className="layout d-flex">
     <div className="container h-100">
       {children}
     </div>
@@ -15,5 +19,6 @@ const layout = React.memo(({ children }) => (
 ));
 
 layout.propTypes = propTypes;
+layout.defaultProps = defaultProps;
 
 export default layout;

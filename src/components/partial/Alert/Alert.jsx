@@ -54,7 +54,7 @@ const alert = ({ visible, message, type }) => {
   return (
     <CSSTransition
       in={visible}
-      timeout={config.alertAnimationTimeout}
+      timeout={config.alert.animationTimeout}
       classNames="alert-box"
       unmountOnExit
     >

@@ -13,11 +13,11 @@ const router = React.memo(() => (
     <Switch>
       <Route path="/" exact component={HomePage} />
 
-      <Route path="/breeds/:breed/:subBreed" component={BreedPage} />
-      <Route path="/breeds/:breed" component={BreedPage} />
-      <Route path="/breeds" component={BreedListPage} />
+      <Route path="/breeds/:breed/:subBreed" exact component={BreedPage} />
+      <Route path="/breeds/:breed" exact component={BreedPage} />
+      <Route path="/breeds" exact component={BreedListPage} />
 
-      <Route path="/about" component={AboutPage} />
+      <Route path="/about" exact component={AboutPage} />
 
       <Route component={Page404} />
     </Switch>

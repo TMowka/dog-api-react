@@ -7,37 +7,14 @@ import BreedSearch from './BreedSearch/BreedSearch';
 import BreedList from './BreedList/BreedList';
 
 const propTypes = {
-  fetchBreedList: PropTypes.func.isRequired,
-  pending: PropTypes.bool
-};
-
-const defaultProps = {
-  pending: false
+  fetchBreedList: PropTypes.func.isRequired
 };
 
 class BreedListPage extends Component {
   componentDidMount() {
-    this.fetchBreedList();
-  }
-
-  fetchBreedList() {
     const { fetchBreedList } = this.props;
 
     fetchBreedList();
-  }
-
-  renderBreedList() {
-    const { pending } = this.props;
-
-    const spinner = (
-      <div className="col d-flex justify-content-center">
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
-    );
-
-    return pending ? spinner : <BreedList />;
   }
 
   render() {
@@ -47,7 +24,7 @@ class BreedListPage extends Component {
           <BreedSearch />
         </div>
         <div className="row">
-          {this.renderBreedList()}
+          <BreedList />
         </div>
       </div>
     );
@@ -55,12 +32,5 @@ class BreedListPage extends Component {
 }
 
 BreedListPage.propTypes = propTypes;
-BreedListPage.defaultProps = defaultProps;
 
-const mapStateToProps = state => ({
-  breeds: state.breeds.list,
-  pending: state.breeds.pending,
-  filter: state.breeds.filter
-});
-
-export default connect(mapStateToProps, actions)(BreedListPage);
+export default connect(null, actions)(BreedListPage);

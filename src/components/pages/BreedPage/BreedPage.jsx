@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { imageByBreedUrl } from 'util/index';
-import { ALERT_TYPES } from 'util/constants';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { locationPropTypes, historyPropTypes } from 'util/propTypes';
+import { locationPropTypes } from 'util/propTypes';
+import PropTypes from 'prop-types';
 import * as actions from 'store/actions';
 
 import Modal from 'components/partial/Modal/Modal';
@@ -14,32 +12,31 @@ import BreedImageList from './BreedImageList/BreedImageList';
 
 const propTypes = {
   location: locationPropTypes.isRequired,
-  history: historyPropTypes.isRequired
+  setActiveImageIndex: PropTypes.func.isRequired,
+  activeImageIndex: PropTypes.number,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+const defaultProps = {
+  activeImageIndex: -1
 };
 
 class BreedPage extends Component {
   state = {
-    images: [],
-    open: false,
-    activeImageIndex: -1
+    open: false
   };
 
   componentDidMount() {
     return this.fetchImages();
   }
 
-  async componentDidUpdate(prevProps) {
-    const { location } = this.props;
-
-    if (prevProps.location !== location) {
-      this.fetchImages();
-    }
-  }
-
   handleImageClick = (index) => {
+    const { setActiveImageIndex } = this.props;
+
+    setActiveImageIndex(index);
+
     this.setState({
-      open: true,
-      activeImageIndex: index
+      open: true
     });
   }
 
@@ -50,37 +47,29 @@ class BreedPage extends Component {
   }
 
   handleModalContentClick = () => {
-    const { activeImageIndex, images } = this.state;
+    const { activeImageIndex, images, setActiveImageIndex } = this.props;
 
-    this.setState({
-      activeImageIndex: activeImageIndex < images.length - 1 ? activeImageIndex + 1 : 0
-    });
+    setActiveImageIndex(activeImageIndex < images.length - 1 ? activeImageIndex + 1 : 0);
   }
 
   async fetchImages() {
     const {
-      location, history, showAlert, hideAlert
+      location, fetchImages, fetchRandomImages
     } = this.props;
 
     const currBreed = location.pathname.split('/')[2];
     const currSubBreed = location.pathname.split('/')[3];
 
-    try {
-      showAlert('', ALERT_TYPES.PENDING);
-
-      const response = await axios.get(imageByBreedUrl(currBreed, currSubBreed));
-
-      this.setState({
-        images: response.data.message
-      }, hideAlert);
-    } catch (error) {
-      showAlert(error.message, ALERT_TYPES.ERROR, 4000);
-      history.push('/404');
+    if (currBreed === 'image' && currSubBreed === 'random') {
+      return fetchRandomImages();
     }
+
+    return fetchImages(currBreed, currSubBreed);
   }
 
   renderImageModal() {
-    const { images, activeImageIndex, open } = this.state;
+    const { open } = this.state;
+    const { images, activeImageIndex } = this.props;
 
     return (
       <Modal
@@ -96,7 +85,7 @@ class BreedPage extends Component {
   }
 
   render() {
-    const { images } = this.state;
+    const { images } = this.props;
 
     return (
       <div className="col">
@@ -110,8 +99,14 @@ class BreedPage extends Component {
 }
 
 BreedPage.propTypes = propTypes;
+BreedPage.defaultProps = defaultProps;
+
+const mapStateToProps = state => ({
+  images: state.images.list,
+  activeImageIndex: state.images.activeIndex
+});
 
 export default compose(
-  connect(null, actions),
+  connect(mapStateToProps, actions),
   withRouter
 )(BreedPage);

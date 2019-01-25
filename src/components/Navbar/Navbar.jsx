@@ -61,7 +61,7 @@ class Navbar extends Component {
       <nav className="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
           <div className="nav-item">
-            <Link to="/" className="btn btn-outline-light px-3 my-auto">Dog API</Link>
+            <Link to="/" className="navbar-brand">Dog API</Link>
           </div>
           <ul className="navbar-nav">
             {this.renderNavbarItems()}

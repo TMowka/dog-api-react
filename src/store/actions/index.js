@@ -2,45 +2,75 @@ import axios from 'axios';
 import { ALERT_TYPES } from 'util/constants';
 import config from 'config/index';
 import {
-  FETCH_BREEDS, SEARCH_BREED_CHANGE, SHOW_ALERT, HIDE_ALERT
+  FETCH_BREEDS, SEARCH_BREED_CHANGE, SHOW_ALERT, HIDE_ALERT, FETCH_IMAGES, SET_ACTIVE_IMAGE_INDEX
 } from './types';
 
-const showAlertActionCreator = (message, type) => ({
-  type: SHOW_ALERT,
-  payload: { message, type }
-});
-const hideAlertActionCreator = () => ({ type: HIDE_ALERT });
-
+// #region alert
 let alertTimeout;
 
-export const showAlert = (message, type, timeout) => (dispatch) => {
-  dispatch(showAlertActionCreator(message, type));
-
-  if (timeout) {
-    alertTimeout = setTimeout(() => dispatch(hideAlertActionCreator()), timeout);
-  }
-};
-
-export const hideAlert = () => (dispatch) => {
+export const hideAlert = () => {
   clearTimeout(alertTimeout);
 
-  dispatch(hideAlertActionCreator());
+  return { type: HIDE_ALERT };
 };
 
+export const showAlert = (message, type, timeout) => (dispatch) => {
+  dispatch({ type: SHOW_ALERT, payload: { message, type } });
+
+  if (timeout) {
+    alertTimeout = setTimeout(() => dispatch(hideAlert()), timeout);
+  }
+};
+// #endregion alert
+
 export const fetchBreedList = () => async (dispatch) => {
-  dispatch(showAlertActionCreator('', ALERT_TYPES.PENDING));
+  dispatch(showAlert('', ALERT_TYPES.PENDING));
   try {
     const response = await axios.get('https://dog.ceo/api/breeds/list/all');
 
-    dispatch(hideAlertActionCreator());
+    dispatch(hideAlert());
     dispatch({ type: FETCH_BREEDS, payload: response.data.message });
   } catch (error) {
-    dispatch(showAlertActionCreator(error.message, ALERT_TYPES.ERROR));
-
-    alertTimeout = setTimeout(() => dispatch(hideAlertActionCreator()), config.alertTimeout);
+    dispatch(showAlert(error.message, ALERT_TYPES.ERROR, config.alert.timeout));
   }
 };
 
 export const searchBreedChange = value => dispatch => dispatch({
   type: SEARCH_BREED_CHANGE, payload: value.toLowerCase()
+});
+
+export const fetchImages = (breed, subBreed) => async (dispatch) => {
+  dispatch(showAlert('', ALERT_TYPES.PENDING));
+  try {
+    let url = 'https://dog.ceo/api/breed';
+    if (subBreed) {
+      url += `/${breed}/${subBreed}/images/random/${config.images.limit}`;
+    } else {
+      url += `/${breed}/images/random/${config.images.limit}`;
+    }
+
+    const response = await axios.get(url);
+
+    dispatch(hideAlert());
+    dispatch({ type: FETCH_IMAGES, payload: response.data.message });
+  } catch (error) {
+    dispatch(showAlert(error.message, ALERT_TYPES.ERROR, config.alert.timeout));
+  }
+};
+
+export const fetchRandomImages = () => async (dispatch) => {
+  dispatch(showAlert('', ALERT_TYPES.PENDING));
+  try {
+    const response = await axios.get(`https://dog.ceo/api/breeds/image/random/${config.images.limit}`);
+
+    dispatch(hideAlert());
+    dispatch({ type: FETCH_IMAGES, payload: response.data.message });
+  } catch (error) {
+    dispatch(showAlert(error.message, ALERT_TYPES.ERROR, config.alert.timeout));
+  }
+};
+
+export const setActiveImageIndex = index => ({
+  type: SET_ACTIVE_IMAGE_INDEX,
+  payload: index
 });

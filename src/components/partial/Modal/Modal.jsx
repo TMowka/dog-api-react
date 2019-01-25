@@ -29,7 +29,7 @@ const modal = React.memo(({
   return (
     <CSSTransition
       in={open}
-      timeout={config.modalAnimationTimeout}
+      timeout={config.modal.animationTimeout}
       classNames="modal"
       unmountOnExit
     >

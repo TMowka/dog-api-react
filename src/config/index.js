@@ -1,5 +1,12 @@
 export default {
-  alertTimeout: 4000,
-  alertAnimationTimeout: 150,
-  modalAnimationTimeout: 150
+  alert: {
+    timeout: 4000,
+    animationTimeout: 150
+  },
+  modal: {
+    animationTimeout: 150
+  },
+  images: {
+    limit: 10
+  }
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from 'store/reducers';
@@ -25,9 +25,9 @@ const root = ({ initialState, children }) => {
   );
 
   return (
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       {children}
-    </Provider>
+    </ReduxProvider>
   );
 };
 
