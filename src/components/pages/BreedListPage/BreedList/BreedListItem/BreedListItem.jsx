@@ -14,7 +14,7 @@ const defaultProps = {
   subBreeds: null
 };
 
-const breedListItem = React.memo(({ breed, subBreeds }) => {
+const breedListItem = ({ breed, subBreeds }) => {
   let breedButton = (
     <Link className="btn btn-outline-secondary" to={`/breeds/${breed}`}>{breed}</Link>
   );
@@ -46,7 +46,7 @@ const breedListItem = React.memo(({ breed, subBreeds }) => {
       </div>
     </div>
   );
-});
+};
 
 breedListItem.propTypes = propTypes;
 breedListItem.defaultProps = defaultProps;

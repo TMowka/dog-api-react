@@ -55,6 +55,7 @@
     "react-transition-group": "^2.5.3",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
@@ -88,6 +89,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
+    "setupTestFrameworkScriptFile": "./src/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"

@@ -4,10 +4,15 @@ import { connect } from 'react-redux';
 import * as actions from 'store/actions';
 
 const propTypes = {
-  searchBreedChange: PropTypes.func.isRequired
+  searchBreedChange: PropTypes.func.isRequired,
+  filter: PropTypes.string
 };
 
-const breedSearch = React.memo(({ searchBreedChange }) => {
+const defaultProps = {
+  filter: ''
+};
+
+const breedSearch = ({ searchBreedChange, filter }) => {
   const searchBreedChangeHandle = event => searchBreedChange(event.target.value);
 
   return (
@@ -19,12 +24,20 @@ const breedSearch = React.memo(({ searchBreedChange }) => {
         type="text"
         className="form-control"
         placeholder="Start typing the breed name here ..."
+        value={filter}
         onChange={searchBreedChangeHandle}
       />
     </div>
   );
-});
+};
 
 breedSearch.propTypes = propTypes;
+breedSearch.defaultProps = defaultProps;
 
-export default connect(null, actions)(breedSearch);
+const getFilterSelector = state => state.breeds.filter;
+
+const mapStateToPros = state => ({
+  filter: getFilterSelector(state)
+});
+
+export default connect(mapStateToPros, actions)(breedSearch);

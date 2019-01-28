@@ -1,39 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { createSelector } from 'reselect';
 
 import BreedListItem from './BreedListItem/BreedListItem';
 
 const propTypes = {
-  breeds: PropTypes.instanceOf(Object),
-  filter: PropTypes.string
+  breeds: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-const defaultProps = {
-  breeds: null,
-  filter: ''
-};
-
-const breedList = React.memo(({ breeds, filter }) => (
+const breedList = ({ breeds }) => (
   <div className="col d-flex justify-content-center flex-wrap">
-    {breeds && Object.keys(breeds)
-      .filter(breed => breed.includes(filter))
-      .map(breed => (
-        <BreedListItem
-          key={breed}
-          breed={breed}
-          subBreeds={breeds[breed]}
-        />
-      ))}
+    {breeds.map(breed => (
+      <BreedListItem
+        key={breed}
+        breed={breed}
+        subBreeds={breeds[breed]}
+      />
+    ))}
   </div>
-));
+);
 
 breedList.propTypes = propTypes;
-breedList.defaultProps = defaultProps;
+
+const filteredBreedsSelector = createSelector(
+  state => state.breeds.list,
+  state => state.breeds.filter,
+  (breeds, filter) => (
+    breeds
+      ? Object.keys(breeds).filter(breed => breed.includes(filter))
+      : []
+  )
+);
 
 const mapStateToProps = state => ({
-  breeds: state.breeds.list,
-  filter: state.breeds.filter
+  breeds: filteredBreedsSelector(state)
 });
 
 export default connect(mapStateToProps)(breedList);

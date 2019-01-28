@@ -101,9 +101,12 @@ class BreedPage extends Component {
 BreedPage.propTypes = propTypes;
 BreedPage.defaultProps = defaultProps;
 
+const imagesSelector = state => state.images.list;
+const activeImageIndexSelector = state => state.images.activeIndex;
+
 const mapStateToProps = state => ({
-  images: state.images.list,
-  activeImageIndex: state.images.activeIndex
+  images: imagesSelector(state),
+  activeImageIndex: activeImageIndexSelector(state)
 });
 
 export default compose(
