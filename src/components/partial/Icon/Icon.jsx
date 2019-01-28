@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import githubSvg from 'assets/icons/github.svg';
-import linkedinSvg from 'assets/icons/linkedin.svg';
-import telegramSvg from 'assets/icons/telegram.svg';
+import { ReactComponent as GithubIcon } from 'assets/icons/github.svg';
+import { ReactComponent as LinkedinIcon } from 'assets/icons/linkedin.svg';
+import { ReactComponent as TelegramIcon } from 'assets/icons/telegram.svg';
 
 const propTypes = {
   name: PropTypes.string,
@@ -16,25 +16,29 @@ const defaultProps = {
 };
 
 const icon = React.memo(({ name, className }) => {
-  let iconSvg;
+  let Icon;
+  let color;
   switch (name) {
     case 'github':
-      iconSvg = githubSvg;
+      Icon = GithubIcon;
+      color = '#333333';
       break;
 
     case 'linkedin':
-      iconSvg = linkedinSvg;
+      Icon = LinkedinIcon;
+      color = '#0077b5';
       break;
 
     case 'telegram':
-      iconSvg = telegramSvg;
+      Icon = TelegramIcon;
+      color = '#0088cc';
       break;
 
     default:
       break;
   }
 
-  return <img src={iconSvg} alt={name} className={className} />;
+  return <Icon className={className} fill={color} />;
 });
 
 icon.propTypes = propTypes;

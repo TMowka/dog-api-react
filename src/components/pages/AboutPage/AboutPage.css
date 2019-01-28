@@ -1,3 +1,11 @@
+.social-container {
+  border-top: 1px solid #32383e;
+}
+
 .social-icon {
   width: 50px;
+}
+
+.area-cell {
+  font-weight: bold;
 }

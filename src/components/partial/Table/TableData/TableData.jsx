@@ -12,13 +12,13 @@ const defaultProps = {
   className: ''
 };
 
-const tableRow = React.memo(({ children, className }) => (
-  <tr className={className}>
+const tableData = React.memo(({ children, className }) => (
+  <td className={className}>
     {children}
-  </tr>
+  </td>
 ));
 
-tableRow.propTypes = propTypes;
-tableRow.defaultProps = defaultProps;
+tableData.propTypes = propTypes;
+tableData.defaultProps = defaultProps;
 
-export default tableRow;
+export default tableData;

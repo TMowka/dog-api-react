@@ -32,54 +32,48 @@ const aboutPage = React.memo(() => (
             <Table>
               <Table.Head items={['Area', 'Skills']} className="thead-dark text-center" />
               <Table.Body>
-                <Table.Row
-                  items={['English',
-                    <span>Intermediate - Upper Intermediate</span>
-                  ]}
-                />
-                <Table.Row
-                  items={['Backend',
-                    <span>
-                      Web API, OAuth, OAuth2.0, REST
-                      <br />
-                      .NET ASP MVC, ASP API2, Core, Dependency Injection, IIS, LinQ
-                      <br />
-                      Node.js Express.js, Koa.js, Passport.js
-                    </span>
-                  ]}
-                />
-                <Table.Row
-                  items={['Database',
-                    <span>
-                      MSSQL, MySQL, Entity Framework, ADO.NET, Sequelize, Mongo
-                    </span>
-                  ]}
-                />
-                <Table.Row
-                  items={['Frontend',
-                    <span>
-                      JavaScript ES8, jQuery, CSS3, SCSS, JSON, HTML5, XML, React.js, Redux,
-                      Vue.js, Angular2
-                    </span>
-                  ]}
-                />
-                <Table.Row
-                  items={['Blockchain',
-                    <span>
-                      Ethereum, Bitcoin, NEM, Solidity, Web3.js, Truffle.js,
-                      openzeppelinsolidity.js, Hyperledger Composer, Hyperledger Fabric, Stellar
-                    </span>
-                  ]}
-                />
-                <Table.Row
-                  items={['Other',
-                    <span>
-                      npm, yarn, eslint, AutoMapper, Swagger, Babel, Webpack, Mocha, Jest, Markdown,
-                      GitHub, GitLab, Fiddler, Team Foundation Server, Postman, Git, Visual Studio,
-                      Visual Studio Code
-                    </span>
-                  ]}
-                />
+                <Table.Row>
+                  <Table.Data className="area-cell">English</Table.Data>
+                  <Table.Data>Intermediate - Upper Intermediate</Table.Data>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Data className="area-cell">Backend</Table.Data>
+                  <Table.Data>
+                    Web API, OAuth, OAuth2.0, REST
+                    <br />
+                    .NET ASP MVC, ASP API2, Core, Dependency Injection, IIS, LinQ
+                    <br />
+                    Node.js Express.js, Koa.js, Passport.js
+                  </Table.Data>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Data className="area-cell">Database</Table.Data>
+                  <Table.Data>
+                    MSSQL, MySQL, Entity Framework, ADO.NET, Sequelize, Mongo
+                  </Table.Data>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Data className="area-cell">Frontend</Table.Data>
+                  <Table.Data>
+                    JavaScript ES8, jQuery, CSS3, SCSS, JSON, HTML5, XML, React.js, Redux,
+                    Vue.js, Angular2
+                  </Table.Data>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Data className="area-cell">Blockchain</Table.Data>
+                  <Table.Data>
+                    Ethereum, Bitcoin, NEM, Solidity, Web3.js, Truffle.js,
+                    openzeppelinsolidity.js, Hyperledger Composer, Hyperledger Fabric, Stellar
+                  </Table.Data>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Data className="area-cell">Other</Table.Data>
+                  <Table.Data>
+                    npm, yarn, eslint, AutoMapper, Swagger, Babel, Webpack, Mocha, Jest, Markdown,
+                    GitHub, GitLab, Fiddler, Team Foundation Server, Postman, Git, Visual Studio,
+                    Visual Studio Code
+                  </Table.Data>
+                </Table.Row>
               </Table.Body>
             </Table>
           </div>
@@ -87,7 +81,7 @@ const aboutPage = React.memo(() => (
 
         <div className="row">
           <div className="col">
-            <div className="d-flex flex-row justify-content-around align-items-center p-5">
+            <div className="d-flex flex-row justify-content-around align-items-center p-5 social-container">
               <a href="https://github.com/TMowka" target="_blank" rel="noopener noreferrer">
                 <Icon name="github" className="social-icon" />
               </a>

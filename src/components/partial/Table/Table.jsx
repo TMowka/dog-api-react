@@ -4,6 +4,7 @@ import { childrenPropTypes } from 'util/propTypes';
 import TableBody from './TableBody/TableBody';
 import TableHead from './TableHead/TableHead';
 import TableRow from './TableRow/TableRow';
+import TableData from './TableData/TableData';
 
 const propTypes = {
   children: childrenPropTypes
@@ -22,8 +23,12 @@ class Table extends PureComponent {
     return <TableBody>{children}</TableBody>;
   }
 
-  static Row({ items }) {
-    return <TableRow items={items} />;
+  static Row({ children, className }) {
+    return <TableRow className={className}>{children}</TableRow>;
+  }
+
+  static Data({ children, className }) {
+    return <TableData className={className}>{children}</TableData>;
   }
 
   render() {
